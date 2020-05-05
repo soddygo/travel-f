@@ -6,6 +6,7 @@ import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import Routers from './components/Routers';
 
 
+
 function App() {
   return (
     <div className="App">
@@ -22,10 +23,16 @@ function App() {
         >
           Learn React
         </a>
+          <a
+              href="./components/page2.html"
+              target="_blank"
+          >
+              page2 test
+          </a>
       </header>
-      <tbody>
+      <div>
       <Routers/>
-      </tbody>
+      </div>
     </div>
   );
 }

@@ -12,15 +12,18 @@ import Page1 from '../components/page1/page1'
 export default class extends React.Component {
     render() {
         return (
-            <Router history={ useHistory }>
-                <Route path="/Page1" component={Page1}/>
-
-                {/*<Route path="systemLayoutNoBreadcrumb" component={SystemLayoutNoBreadcrumb}>*/}
-                {/*    <Route path="/eventslist" component={Eventslist}/>*/}
-                {/*    <Route path="/eventslistDetail" component={EventslistDetail}/>*/}
-                {/*</Route>*/}
-
-            </Router>
+            <div>
+                test div
+            </div>
+            // <Router >
+            //     <Route path="/Page1" component={Page1}/>
+            //
+            //     {/*<Route path="systemLayoutNoBreadcrumb" component={SystemLayoutNoBreadcrumb}>*/}
+            //     {/*    <Route path="/eventslist" component={Eventslist}/>*/}
+            //     {/*    <Route path="/eventslistDetail" component={EventslistDetail}/>*/}
+            //     {/*</Route>*/}
+            //
+            // </Router>
         )
 
     }

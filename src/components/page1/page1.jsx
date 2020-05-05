@@ -4,7 +4,7 @@ import { Input } from 'antd';
 import {observer,inject} from "mobx-react";
 import { Select,DatePicker,Form,message,Layout,Pagination,Popconfirm,Radio,Table,Row,Col } from 'antd';
 import ajax from '../../components/util/ajax';
-import "../../static/css/common.sass";
+import "../../static/css/common.css";
 
 
 const { Content, Sider } = Layout;
@@ -12,7 +12,7 @@ const Option = Select.Option;
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const { Column, ColumnGroup } = Table;
-const utils = require('../util/index');
+// const utils = require('../util/index');
 
 const React = require('react');
 const mobx = require('mobx');
@@ -128,7 +128,6 @@ class NoticeLog extends React.Component {
                             >
                                 <Input
                                     data-model="search.content"
-                                    onChange={(e)=>utils.handleInput(e,null,vm)}
                                     value={vm.search.content}
                                 />
                             </FormItem>
@@ -142,7 +141,6 @@ class NoticeLog extends React.Component {
                                 <Input
                                     data-model="search.sendPerson"
                                     value={vm.search.sendPerson}
-                                    onChange={(e)=>utils.handleInput(e,null,vm)}
                                 />
                             </FormItem>
                         </Col>
@@ -155,7 +153,6 @@ class NoticeLog extends React.Component {
                                 <Input
                                     data-model="search.tousers"
                                     value={vm.search.tousers}
-                                    onChange={(e)=>utils.handleInput(e,null,vm)}
                                 />
                             </FormItem>
                         </Col>
@@ -196,7 +193,6 @@ class NoticeLog extends React.Component {
                                 label="类型"
                             >
                                 <Select
-                                    onChange={(value)=>utils.handleInput(value,'search.type',vm)}
                                     value={vm.search.type}
                                     style={{ width: '100%' }}
                                 >
@@ -276,4 +272,32 @@ class NoticeLog extends React.Component {
     }
 };
 
-export default utils.HOC(NoticeLog,defaultModel);
+let getDisplayName=(wrappedComponent)=>{
+    return wrappedComponent.displayName ||wrappedComponent.name ||'Component';
+};
+function HOC(WrappedComponent,defaultModel) {
+    return class HOC extends React.Component {
+
+        static displayName = `HOC(${getDisplayName(WrappedComponent)})`;
+
+        constructor(props) {
+            super(props);
+
+            this.model=mobx.observable(defaultModel||{});
+        }
+
+        componentDidMount() {
+            this.wrappedInstance = this.refs.child;
+        }
+
+        render() {
+            return (
+                <div className={this.props.className||''}>
+                    <WrappedComponent {...this.props} ref="child" model={this.model}/>
+                </div>
+            )
+        }
+    };
+}
+
+export default HOC(NoticeLog,defaultModel);
