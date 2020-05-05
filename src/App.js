@@ -1,6 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import zh_CN from 'antd/lib/locale-provider/zh_CN';
+
+import Routers from './components/Routers';
+
 
 function App() {
   return (
@@ -19,6 +23,9 @@ function App() {
           Learn React
         </a>
       </header>
+      <tbody>
+      <Routers/>
+      </tbody>
     </div>
   );
 }
