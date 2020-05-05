@@ -12,7 +12,7 @@ const Option = Select.Option;
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const { Column, ColumnGroup } = Table;
-const utils = require('../utils/index');
+const utils = require('../util/index');
 
 const React = require('react');
 const mobx = require('mobx');
