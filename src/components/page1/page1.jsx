@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { Input } from 'antd';
 import {observer,inject} from "mobx-react";
 import { Select,DatePicker,Form,message,Layout,Pagination,Popconfirm,Icon,Radio,Table,Row,Col } from 'antd';
-import ajax from '../util/ajax';
+import ajax from 'src/components/util/ajax';
 import "static/css/common.less";
 
 
