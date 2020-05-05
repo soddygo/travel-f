@@ -2,9 +2,9 @@
 import { Button } from 'antd';
 import { Input } from 'antd';
 import {observer,inject} from "mobx-react";
-import { Select,DatePicker,Form,message,Layout,Pagination,Popconfirm,Icon,Radio,Table,Row,Col } from 'antd';
-import ajax from 'src/components/util/ajax';
-import "static/css/common.less";
+import { Select,DatePicker,Form,message,Layout,Pagination,Popconfirm,Radio,Table,Row,Col } from 'antd';
+import ajax from '../../components/util/ajax';
+import "../../static/css/common.sass";
 
 
 const { Content, Sider } = Layout;
@@ -60,7 +60,7 @@ class NoticeLog extends React.Component {
             vm.tableData = data.data.list;
             vm.totalItems = data.data.total;
             vm.tableLoading = false;
-        }, null, "post");
+        }, null);
     };
     search = () =>{
         let _this=this;
@@ -113,13 +113,7 @@ class NoticeLog extends React.Component {
 
         return (
             <div className="page-content">
-                <div className="text-right">
-                    <Icon
-                        onClick={this.handleShowSearch}
-                        style={{cursor:"pointer"}}
-                        type={vm.showSearchIcon}
-                    />
-                </div>
+
                 <Form
                     className="searchForm mt10"
                     style={{display:vm.showSearch}}

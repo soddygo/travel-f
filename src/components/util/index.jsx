@@ -450,45 +450,6 @@ function isJSON(str) {
     return false;
 }
 
-/**
- * 时间表达式转换
- * @param value
- * @returns {*}
- */
-function evalValue (value) {
-    if (isNaN(Number(value))) {
-        var now = function (i, key) {
-            if (i == undefined) {
-                return +moment();
-            }
-            return +moment().add(i, key);
-        };
-        var interval = function (i, key) {
-            if (i == undefined) {
-                i == 1
-            }
-            var y = 0;
-            switch (key) {
-                case 'h':
-                    y = 60 * 60 * 1000;
-                    break;
-                case 'd':
-                    y = 24 * 60 * 60 * 1000;
-                    break;
-                case 'm':
-                    y = 60 * 1000;
-                    break;
-                case 's':
-                    y = 1000;
-                    break;
-            }
-            return i * y;
-        };
-        return eval(value);
-    } else {
-        return value;
-    }
-};
 
 function revertValue(value,type) {
 
@@ -611,66 +572,6 @@ function previewChartParamTranform (paramArr){
         });
 
         result=result.concat(allExps);
-    }
-
-    return result;
-};
-/**
- * 参数转换为请求数据查询的条件
- * @param paramList
- * @param aggregateFlag 指标值聚合类型标记
- * @param filterFlag 过滤条件标记
- * @returns {Array}
- */
-function chartParamTransform (paramList, type){
-    let result = [];
-
-    if (!paramList && filterFlag) {
-        //paramList 是undefined标记,且filterFlag是true,则此图表组件,未对应到任何看板过滤条件
-        return result;
-    }
-
-    if (type==='aggregate') {
-        //聚合类型,指标字段处理
-        paramList.map(param => {
-            let list = [];
-            param.cols.map(item => {
-                let obj = {};
-                obj["column"] = item.col;
-                obj["aggType"] = item.aggregate_type;
-                list.push(obj);
-            });
-            return list;
-        }).reduce(function (previous, current) {
-            return previous.concat(current);
-        }).forEach(item => {
-            result.push(item);
-        });
-
-    } else if (type==='filter') {
-        //是过滤条件
-        paramList.forEach(param => {
-            //过滤条件的值不为空,或空数组,才添加进入
-            if (param.values && param.values.length > 0) {
-                let obj = {};
-                obj["columnName"] = param.col;
-                obj["values"] = param.values;
-                obj["filterType"] = param.type;
-                obj["id"] = param.id;
-                result.push(obj);
-            }
-        });
-    } else if(type==='dimension') {
-        //维度列
-        paramList.forEach(param => {
-            let obj = {};
-            obj["columnName"] = param.col;
-            obj["values"] = param.values;
-            obj["filterType"] = param.type;
-            obj["id"] = param.id;
-            result.push(obj);
-        });
-
     }
 
     return result;
@@ -859,7 +760,6 @@ exports.renderTreeNodesCheckbox=renderTreeNodesCheckbox;
 exports.renderTreeNodes=renderTreeNodes;
 exports.renderSelectTreeNodes=renderSelectTreeNodes;
 exports.handlePaginationChange=handlePaginationChange;
-exports.exportToPdf=exportToPdf;
 
 exports.getFlattenMenu=getFlattenMenu;
 
@@ -870,10 +770,8 @@ exports.iiHOC=iiHOC;
 exports.ppHOC=ppHOC;
 exports.HOC=HOC;
 
-exports.chartParamTransform=chartParamTransform;
 exports.previewChartParamTranform=normalizeColorToHexObj;
 
-exports.evalValue=evalValue;
 exports.formatter=formatter;
 exports.revertValue=revertValue;
 
